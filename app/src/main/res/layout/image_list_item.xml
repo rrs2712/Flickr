@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <!--android:background="@drawable/magnitude_circle"-->
+    <!--android:textColor="@color/white"-->
+    <!--android:textSize="@dimen/textSizeMagnitude"-->
+    <!--<TextView-->
+        <!--android:id="@+id/thumbnail"-->
+        <!--android:layout_width="@dimen/thumbnail_default_size"-->
+        <!--android:layout_height="@dimen/thumbnail_default_size"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:gravity="center"-->
+        <!--android:fontFamily="sans-serif" />-->
+
+    <ImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="@dimen/thumbnail_default_size"
+        android:layout_height="@dimen/thumbnail_default_size"/>
+
+    <LinearLayout
+        android:layout_width="@dimen/zeroDP"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/standardPadding">
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif"
+            android:maxLines="1"
+            android:textAllCaps="true"
+            android:textColor="@color/textColorDescriptions"
+            android:textSize="@dimen/textSizeDescriptions"/>
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/textColorTitle"
+            android:textSize="@dimen/textSizeTitle"/>
+    </LinearLayout>
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:layout_marginLeft="@dimen/standardPadding"-->
+        <!--android:layout_marginStart="@dimen/standardPadding"-->
+        <!--android:orientation="vertical">-->
+        <!--<TextView-->
+            <!--android:id="@+id/date_"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="end"-->
+            <!--android:textColor="@color/textColorLocationOffset"-->
+            <!--android:textSize="@dimen/textSizeDetails"/>-->
+        <!--<TextView-->
+            <!--android:id="@+id/time_"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="end"-->
+            <!--android:textColor="@color/textColorLocationOffset"-->
+            <!--android:textSize="@dimen/textSizeDetails"/>-->
+    <!--</LinearLayout>-->
+
+</LinearLayout>
