@@ -2,6 +2,7 @@ package com.tigerspike.flickr.model.bo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.tigerspike.flickr.utils.DefaultValues;
 
 public class Item {
 
@@ -64,7 +65,7 @@ public class Item {
     }
 
     public String getTitle() {
-        return title;
+        return (title.trim() == "") ? DefaultValues.ITEM_TITLE : title.trim();
     }
 
     public void setTitle(String title) {
@@ -88,7 +89,7 @@ public class Item {
     }
 
     public String getDateTaken() {
-        return dateTaken;
+        return (dateTaken.trim() == "") ? DefaultValues.ITEM_DATE_TAKEN : dateTaken.trim();
     }
 
     public void setDateTaken(String dateTaken) {
@@ -96,7 +97,7 @@ public class Item {
     }
 
     public String getDescription() {
-        return description;
+        return (description.trim() == "") ? DefaultValues.ITEM_DESCRIPTION : description.trim();
     }
 
     public void setDescription(String description) {

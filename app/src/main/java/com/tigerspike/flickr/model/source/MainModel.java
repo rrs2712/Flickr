@@ -3,8 +3,8 @@ package com.tigerspike.flickr.model.source;
 import android.util.Log;
 
 import com.tigerspike.flickr.model.bo.Flickr;
-import com.tigerspike.flickr.model.bo.Item;
 import com.tigerspike.flickr.presenter.MVP;
+import com.tigerspike.flickr.utils.Tools;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -13,9 +13,13 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by rrs27 on 2017-12-16.
+ * Class MainModel implements MVP.Model and uses {@link Retrofit} to retrieve data from Flickr
+ * using its API. Afterwards, this class will send such data
+ * to the {@link com.tigerspike.flickr.presenter.MVP.Presenter}
+ *
+ * @author Raul RS
+ * @version 1.0
  */
-
 public class MainModel implements MVP.Model {
 
     // Log
@@ -26,73 +30,64 @@ public class MainModel implements MVP.Model {
 
     /**
      * Class constructor. Receives {@link MVP.Presenter} to instantiate this class.
-     * @param mainPresenter - IComic.Presenter
+     *
+     * @param presenter - MVP.Presenter
      */
-    public MainModel(MVP.Presenter mainPresenter) {
-        Log.d(TAG, "Using " + this.getClass().getSimpleName());
-        this.presenter = mainPresenter;
+    public MainModel(MVP.Presenter presenter) {
+        Log.d(TAG, "Using presenter implementation: " + presenter.getClass().getSimpleName());
+        this.presenter = presenter;
     }
 
+//    ## IMPLEMENTATIONS ##
+
+    /**
+     * Method called by the presenter to request data to this model.
+     */
     @Override
     public void requestFlickrModel() {
         retrieveData();
     }
 
     /**
-     * Obtains data from an end point using {@link Retrofit}
-     *
+     * Obtains data async from an end point using {@link Retrofit}. In addition, once the data
+     * is retrieved will send such data to the presenter.
      */
     private void retrieveData() {
-        Log.d(TAG,"retrieveData");
+        Log.i(TAG, "retrieveData");
 
-//        Gson gson = new GsonBuilder()
-//                .setLenient()
-//                .create();
-
+//        Create retrofit instance
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(FlickrContract.END_POINT)
                 .addConverterFactory(GsonConverterFactory.create())
-//                .addConverterFactory(SimpleXmlConverterFactory.create())
                 .build();
 
+//        Request and transforms data async
         FlickrContract flickrContract = retrofit.create(FlickrContract.class);
         Call<Flickr> flickrCall = flickrContract.getFlickr(
                 FlickrContract.RESPONSE_JSON,
                 FlickrContract.NO_JSON_CALLBACK);
 
+//        Handling callback
         flickrCall.enqueue(new Callback<Flickr>() {
             @Override
             public void onResponse(Call<Flickr> call, Response<Flickr> response) {
-                if(!response.isSuccessful()){
-                    Log.w(TAG,"unsuccessful: " + response.code());
-                    Log.i(TAG,call.request().toString());
-                    Log.i(TAG,call.request().headers().toString());
-                    Log.i(TAG,response.toString());
-
+                if (!response.isSuccessful()) {
+                    Tools.printUnsuccessfulResponse(call,response);
                     return;
                 }
 
-                Log.i(TAG,"onResponse: "+ response.toString());
-//                Log.i(TAG,"BODY: "+ response.body().getFeed().toString());
-//                str = str.substring("jsonFlickrFeed(".length(), str.length()-1);
+                Log.i(TAG, "onResponse: " + response.toString());
                 Flickr flickr = response.body();
-//                printFlickr(flickr);
+//                Tools.printFlickrItems(flickr);
                 presenter.onReceive(flickr);
             }
 
             @Override
             public void onFailure(Call<Flickr> call, Throwable t) {
-                Log.e(TAG,"onFailure: " + t.getMessage());
-                Log.i(TAG,call.request().toString());
-                Log.i(TAG,call.request().headers().toString());
+                Tools.printOnFailure(call,t);
+//                todo: Handle this error
             }
         });
     }
 
-    private void printFlickr(Flickr flickr) {
-        for (Item item: flickr.getItems()) {
-            Log.d(TAG,item.getTitle());
-            Log.d(TAG,item.getLink().toString());
-        }
-    }
 }

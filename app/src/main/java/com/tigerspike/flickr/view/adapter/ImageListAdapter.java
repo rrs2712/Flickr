@@ -12,37 +12,40 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.tigerspike.flickr.R;
 import com.tigerspike.flickr.model.bo.Item;
+import com.tigerspike.flickr.utils.DefaultValues;
 
 import java.util.List;
 
 /**
- * Created by rrs27 on 2017-12-16.
+ * Class ImageListAdapter extends ArrayAdapter to create a custom list of Items.
+ *
+ * @author Raul RS
+ * @version 1.0
  */
-
 public class ImageListAdapter extends ArrayAdapter {
 
-    // Async image loader
-//    private ImageLoader imageloader = ImageLoader.getInstance();
+    // Log
+    private final String DEV = "RRS";
+    private final String TAG = DEV + ":" + this.getClass().getSimpleName();
 
     /**
-     * Class constructor.
+     * Class constructor. Receives the following parameters:
      *
      * @param context - {@link Activity}
      * @param items   - {@link List<Item>}
      */
     public ImageListAdapter(Activity context, List<Item> items) {
         super(context, 0, items);
-//        imageloader.init(ImageLoaderConfiguration.createDefault(context));
     }
 
     /**
      * Provides a View for an AdapterView (ListView, GridView, etc.)
      *
-     * @param position    The position in the list of data that should be displayed in the
+     * @param position    - The position in the list of data that should be displayed in the
      *                    list item View.
-     * @param convertView The recycled View to populate.
-     * @param parent      The parent ViewGroup that is used for inflation.
-     * @return The View for the position in the AdapterView.
+     * @param convertView - The recycled View to populate.
+     * @param parent      - The parent ViewGroup that is used for inflation.
+     * @return View - The View for the position in the AdapterView.
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -53,34 +56,27 @@ public class ImageListAdapter extends ArrayAdapter {
                     R.layout.image_list_item, parent, false);
         }
 
+//        Retrieve item (custom object)
         Item item = (Item) getItem(position);
 
+//        Referencing and setting widgets
+        Log.i(TAG, "Attempting to load: " + item.getMedia().getM());
         ImageView thumbnail = (ImageView) listItemView.findViewById(R.id.thumbnail);
-        String url = item.getMedia().getM();
-
-        Log.d("RRS", "Attempt to download: " + url);
-//        ContextCompat.getColor(getContext(),newColor);
-//        this.getContext().getString(R.dimen.thumbnail_default_size);
-        int thumbnail_default_size = (int) this.getContext().getResources().getDimension(R.dimen.thumbnail_default_size);
-        thumbnail_default_size = (thumbnail_default_size >=0 ) ? thumbnail_default_size : 100;
         Picasso.with(this.getContext())
-                .load(url)
+                .load(item.getMedia().getM())
                 .placeholder(R.drawable.thumbnail_placeholder)
                 .error(R.drawable.thumbnail_error)
-                .resize(thumbnail_default_size, thumbnail_default_size)
+                .resize(DefaultValues.THUMBNAIL_DEFAULT_SIZE,
+                        DefaultValues.THUMBNAIL_DEFAULT_SIZE)
                 .centerCrop()
                 .into(thumbnail);
-        // Todo: include unit test for image resources
 
         TextView description = (TextView) listItemView.findViewById(R.id.description);
-        String sDescription = (item.getDateTaken().trim() != "") ? item.getDateTaken().trim() : "No description available";
-        description.setText(sDescription);
+        description.setText(item.getDescription());
 
         TextView title = (TextView) listItemView.findViewById(R.id.title);
-        String sTitle = (item.getTitle().trim() != "") ? item.getTitle().trim() : "No title available";
         title.setText(item.getTitle());
 
         return listItemView;
     }
-
 }

@@ -20,23 +20,5 @@ public interface FlickrContract {
             @Query("format") String responseFormat,
             @Query("nojsoncallback") String nojsoncallback);
 
-//    @GET("services/feeds/photos_public.gne")
-//    Call<String> getFlickr(@Query("format") String responseFormat);
-
-//    @Headers("Accept: */*")
-//    @GET("v1/public/comics")
-//    Call<Marvel> getMarvelComics(
-//            @Query("ts") String timeStamp,
-//            @Query("apikey") String publicKey,
-//            @Query("hash") String hash,
-//            @Query("limit") int limit);
-//
-//    @Headers("Accept: */*")
-//    @GET("v1/public/comics/{comicId}")
-//    Call<Marvel> getComic(
-//            @Path("comicId") String comicId,
-//            @Query("ts") String timeStamp,
-//            @Query("apikey") String publicKey,
-//            @Query("hash") String hash);
-
+//    todo: implement more methods if necessary
 }

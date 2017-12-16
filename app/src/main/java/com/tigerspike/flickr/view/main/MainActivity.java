@@ -14,23 +14,26 @@ import com.tigerspike.flickr.view.adapter.ImageListAdapter;
 
 import java.util.List;
 
-public class MainActivity extends Activity  implements MVP.View{
-
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//    }
+/**
+ * Class MainActivity extends Activity and implements MVP.View.
+ *
+ * MainActivity has no logic at all, just calls the presenter to ask for data to fill a custom
+ * ListView.
+ *
+ * @author Raul RS
+ * @version 1.0
+ */
+public class MainActivity extends Activity implements MVP.View{
 
     // Log
     private final String DEV = "RRS";
     private final String TAG = DEV + ":" + this.getClass().getSimpleName();
-    // Bundles
-    public static final String ITEM_ID = "item_detail_id";
     // MVP
     private MVP.Presenter presenter;
     // Widgets
     ListView lv;
+
+//    ## ACTIVITY LIFE CYCLE ##
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,56 +47,33 @@ public class MainActivity extends Activity  implements MVP.View{
 //        todo : implement no-internet defaults
     }
 
-//    /**
-//     *
-//     * Method called when users clicks on an item.
-//     *
-//     * @param id - String
-//     */
-//    private void showDetail(String id) {
-//        Log.d(TAG,"Selected item: " + id);
-//
-//        Bundle b = new Bundle();
-//        b.putString(ITEM_ID,id);
-//
-//        Intent i = new Intent(this, DetailView.class);
-//        i.putExtras(b);
-//        startActivity(i);
-//    }
+//    ## IMPLEMENTATIONS ##
 
+    /**
+     * The presenter will call this method once it has the data requested by MainActivity
+     * @param flickr
+     */
     @Override
     public void onReceive(Flickr flickr) {
+        Log.i(TAG, "onReceive");
         setWidgets(flickr.getItems(), this.lv,this);
-//        printFlickr(flickr);
+//        Tools.printFlickrItems(flickr);
     }
 
-    private void printFlickr(Flickr flickr) {
-        for (Item item: flickr.getItems()) {
-            Log.d(TAG,item.getTitle());
-            Log.d(TAG,item.getLink());
-        }
-    }
+//    ## CLASS METHODS ##
 
     /**
      *
-     * Method to set a custom ListView for a list of comics
+     * Method to set a custom ListView for a list of {@link Item}.
      *
      * @param results - {@link List<Item>}
      * @param lv - {@link ListView}
      * @param context - {@link Activity}
      */
     private void setWidgets(final List<Item> results, ListView lv, Activity context) {
+        Log.i(TAG, "setWidgets");
         ImageListAdapter imageListAdapter = new ImageListAdapter(context,results);
-
         lv.setAdapter(imageListAdapter);
-//        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Result comic = results.get(position);
-//                Log.d(TAG,"Click on comic: " +  comic.toString());
-//                showDetail(comic.getId().toString());
-//            }
-//        });
     }
 
 }
