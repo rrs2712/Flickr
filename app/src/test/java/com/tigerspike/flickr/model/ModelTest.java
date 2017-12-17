@@ -9,11 +9,16 @@ import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created by rrs27 on 2017-12-16.
+ * This class will check the models used in this project.
+ *
+ * @author Raul RS
+ * @version 1.0
  */
-
 public class ModelTest {
 
+    /**
+     * This method checks if the model is an implementation of MVP.Model.
+     */
     @Test
     public void testModel() {
         MVP.Presenter presenter = new MVP.Presenter() {
@@ -23,6 +28,11 @@ public class ModelTest {
 
             @Override
             public void onReceive(Flickr flickr) {
+            }
+
+            @Override
+            public void onReceive(String msg) {
+
             }
         };
 

@@ -7,16 +7,26 @@ import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created by rrs27 on 2017-12-16.
+ * This class will check the Presenter used in this project.
+ *
+ * @author Raul RS
+ * @version 1.0
  */
-
 public class PresenterTest {
 
+    /**
+     * This method checks if the presenter is an implementation of MVP.Presenter.
+     */
     @Test
     public void testPresenter() {
         MVP.View view = new MVP.View() {
             @Override
             public void onReceive(Flickr flickr) {
+            }
+
+            @Override
+            public void onReceive(String msg) {
+
             }
         };
 

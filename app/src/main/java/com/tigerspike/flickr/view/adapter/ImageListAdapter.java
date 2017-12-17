@@ -60,7 +60,7 @@ public class ImageListAdapter extends ArrayAdapter {
         Item item = (Item) getItem(position);
 
 //        Referencing and setting widgets
-        Log.i(TAG, "Attempting to load: " + item.getMedia().getM());
+        Log.v(TAG, "Attempting to load: " + item.getMedia().getM());
         ImageView thumbnail = (ImageView) listItemView.findViewById(R.id.thumbnail);
         Picasso.with(this.getContext())
                 .load(item.getMedia().getM())

@@ -72,7 +72,7 @@ public class MainModel implements MVP.Model {
             @Override
             public void onResponse(Call<Flickr> call, Response<Flickr> response) {
                 if (!response.isSuccessful()) {
-                    Tools.printUnsuccessfulResponse(call,response);
+                    presenter.onReceive(Tools.getUnsuccessfulResponse(call,response));
                     return;
                 }
 
@@ -85,7 +85,7 @@ public class MainModel implements MVP.Model {
             @Override
             public void onFailure(Call<Flickr> call, Throwable t) {
                 Tools.printOnFailure(call,t);
-//                todo: Handle this error
+                presenter.onReceive(t.getMessage());
             }
         });
     }

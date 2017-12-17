@@ -5,7 +5,7 @@ import com.tigerspike.flickr.model.source.MainModel;
 
 /**
  * Class Presenter implements MVP.Presenter.
- * <p>
+ *
  * Presenter is the "bridge" between the View and the Model (In this case between
  * {@link com.tigerspike.flickr.view.main.MainActivity} and {@link MainModel}).
  * It helps to isolate both, the Android framework from the model and vice versa.
@@ -27,7 +27,7 @@ public class Presenter implements MVP.Presenter {
      */
     public Presenter(MVP.View view) {
         this.view = view;
-//        todo: IMPORTANT! remove next line after dagger
+//        todo: Inject this dependency with Dagger if projects grows
         this.model = new MainModel(this);
     }
 
@@ -55,13 +55,19 @@ public class Presenter implements MVP.Presenter {
         }
     }
 
+    /**
+     * This method is called by the model, and will send a message to the view in case of an
+     * exception occurs
+     *
+     * @param msg
+     */
+    @Override
+    public void onReceive(String msg) {
+        if (this.view != null) {
+            this.view.onReceive(msg);
+        }
+    }
+
 //    ## CLASS METHODS ##
 
-    /**
-     * Dependency injection of a MVP.Model implementation
-     * @param model
-     */
-    public void setModel(MVP.Model model) {
-        this.model = model;
-    }
 }

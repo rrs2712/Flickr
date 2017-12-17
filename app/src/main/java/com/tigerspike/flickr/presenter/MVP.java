@@ -16,6 +16,7 @@ public interface MVP {
      */
     interface View {
         void onReceive(Flickr flickr);
+        void onReceive(String msg);
     }
 
     /**
@@ -24,6 +25,7 @@ public interface MVP {
     interface Presenter{
         void requestFlickrModel();
         void onReceive(Flickr flickr);
+        void onReceive(String msg);
     }
 
     /**

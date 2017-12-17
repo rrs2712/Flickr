@@ -1,6 +1,8 @@
 package com.tigerspike.flickr.utils;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
 
@@ -55,21 +57,49 @@ public class Tools{
     }
 
     /**
-     * Prints the important info contained in the given params
+     * Prints important info contained in the given params. In addition, will return a simple
+     * cause to send to the view and eventually display to the user.
+     *
      * @param call
      * @param response
+     * @return cause - String
      */
-    public static void printUnsuccessfulResponse(Call<Flickr> call, Response<Flickr> response) {
-        Log.w(TAG, "Unsuccessful response code: " + response.code());
-        Log.i(TAG, call.request().toString());
-        Log.i(TAG, call.request().headers().toString());
-        Log.i(TAG, response.toString());
+    public static String getUnsuccessfulResponse(Call<Flickr> call, Response<Flickr> response) {
+        String msg = "Connection established with unsuccessful response. Code: " + response.code();
+        Log.w(TAG, msg);
+        Log.v(TAG, call.request().toString());
+        Log.v(TAG, call.request().headers().toString());
+        Log.v(TAG, response.toString());
+        return msg;
     }
 
+    /**
+     * Print on log important info related to the cause of a failure. Method meant to
+     * debug easier.
+     *
+     * @param call
+     * @param t
+     */
     public static void printOnFailure(Call<Flickr> call, Throwable t) {
         Log.e(TAG, "onFailure: " + t.getMessage());
         Log.i(TAG, call.request().toString());
         Log.i(TAG, call.request().headers().toString());
+    }
+
+    /**
+     * Shows a simple and generic AlertDialog. Use this method to display info to the user that
+     * should not disappear immediately (i.e. not like a Toast).
+     *
+     * @param context
+     * @param title
+     * @param message
+     */
+    public static void showMessage4User(Context context, String title, String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.show();
     }
 
 }

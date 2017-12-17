@@ -8,11 +8,16 @@ import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created by rrs27 on 2017-12-16.
+ * This class will check the Views used in this project.
+ *
+ * @author Raul RS
+ * @version 1.0
  */
-
 public class ViewTest {
 
+    /**
+     * This method checks if the main activity is an implementation of MVP.View.
+     */
     @Test
     public void testMainView() {
         MainActivity mainActivity = new MainActivity();
