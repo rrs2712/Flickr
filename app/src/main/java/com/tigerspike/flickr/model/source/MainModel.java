@@ -89,5 +89,4 @@ public class MainModel implements MVP.Model {
             }
         });
     }
-
 }

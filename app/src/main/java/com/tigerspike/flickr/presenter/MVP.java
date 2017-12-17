@@ -8,7 +8,8 @@ import com.tigerspike.flickr.model.bo.Flickr;
  *
  * @author Raul RS
  * @version 1.0
- */public interface MVP {
+ */
+public interface MVP {
 
     /**
      * Interface with methods needed for the View implementations

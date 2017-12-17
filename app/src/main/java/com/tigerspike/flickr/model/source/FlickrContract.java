@@ -7,9 +7,13 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 /**
- * Created by rrs27 on 2017-12-16.
+ * Interface FlickrContract contains static variables (i.e. end point) and methods to implement
+ * when using the Flickr API
+ * @see <a href="https://www.flickr.com/services/feeds/docs/photos_public">Flickr API</a>
+ *
+ * @author Raul RS
+ * @version 1.0
  */
-
 public interface FlickrContract {
     public static final String END_POINT="https://api.flickr.com/";
     public static final String RESPONSE_JSON = "json";

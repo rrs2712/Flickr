@@ -41,6 +41,7 @@ public class MainActivity extends Activity implements MVP.View{
         setContentView(R.layout.activity_main);
 
         lv = (ListView) findViewById(R.id.image_list);
+//        todo: IMPORTANT! remove next line after dagger
         presenter = new Presenter(this);
         presenter.requestFlickrModel();
 
@@ -74,6 +75,14 @@ public class MainActivity extends Activity implements MVP.View{
         Log.i(TAG, "setWidgets");
         ImageListAdapter imageListAdapter = new ImageListAdapter(context,results);
         lv.setAdapter(imageListAdapter);
+    }
+
+    /**
+     * Dependency injection of a MVP.Presenter implementation
+     * @param presenter
+     */
+    public void setPresenter(MVP.Presenter presenter){
+        this.presenter = presenter;
     }
 
 }
